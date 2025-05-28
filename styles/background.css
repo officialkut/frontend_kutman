@@ -1,0 +1,7 @@
+.background__content{
+background-image: url("/images/partret.png"),url("/images/black1.png"),url("/images/black1.png");
+background-repeat: no-repeat, no-repeat, no-repeat;
+background-position: 120px 3px, 10% 100%, bottom 213px right 0px, bottom 120% right 120%, bottom 120% right 120%;
+
+height: 654px;
+}

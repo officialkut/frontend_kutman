@@ -1,0 +1,17 @@
+.section__features{
+    display: flex;
+    margin: 80px;
+}
+.features__content{
+    display: flex;
+    flex: 1px;
+}
+.features__wrap{
+    margin: 120px;
+}
+.features__title {
+    font-family: 'inter';
+}
+.features__subtitle {
+    font-family: 'Regular';
+}
