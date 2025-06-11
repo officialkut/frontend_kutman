@@ -5,7 +5,7 @@ const cards = {
     subtitle: "Senior Product Designer",
     location: "Los Angeles, USA",
     tags: ["Figma", "UI Design", "UX Design"],
-    about: "Hi, I’m a final year student completing a bachelor’s Innformation Technology in QUT,withexperience. We are the company behind the wildly successful DIY channel 5-Minute Crafts, the inspirational and creative channel Bright Side.",
+    about: "Hi, I’m a final year student completing a bachelor’s in Information Technology in QUT, with experience.",
     portfolioImages: [
       "images/Fram.png",
       "images/Fram2.png",
@@ -22,63 +22,32 @@ function getCardData(key) {
 
 function generateCardTemplate(data) {
   const tagBadges = data.tags.map(tag => `<p class="about__register">${tag}</p>`).join('');
-  const portfolioImages = data.portfolioImages.map(img => `<img src="${img}" alt="Portfolio">`).join('');
 
   return `
-    <h2 class="about__title">Everything you want to know in one place.</h2>
-    <div class="about__wrap">
-      <div class="about__wrapper">
-        <div class="about__inner">
-          <div class="about__inner__war">
-            <img class="about__avatar" src="images/Ellipse.png" alt="Profile Picture">
-            <p class="about__subject">${data.title}</p>
-            <p class="about__caption">${data.subtitle}</p>
-            <div class="about__col">
-              <p>${data.location}</p>
-              <p class="about__slogan">Fulltime Freelancer</p>
-            </div>
-          </div>
-          <div class="about__registertext">
-            ${tagBadges}
+    <div class="about__wrapper bg-white p-6 rounded shadow-md">
+      <div class="about__inner flex justify-between items-start mb-4">
+        <div class="about__inner__war">
+          <img class="about__avatar" src="images/Ellipse.png" alt="Profile Picture">
+          <p class="about__subject font-bold">${data.title}</p>
+          <p class="about__caption text-gray-600">${data.subtitle}</p>
+          <div class="about__col">
+            <p>${data.location}</p>
+            <p class="about__slogan">Fulltime Freelancer</p>
           </div>
         </div>
-        <div>
-          <p class="about__text">About Me</p>
-          <p class="about__slogan__text">${data.about}</p>
-        </div>
-        <p class="about__text">Portfolio</p>
-        <div class="about__img">
-          ${portfolioImages}
-        </div>
-        <p>Work Experience</p>
-        <div class="about__list__item">
-          <div class="about__list2">
-            <div class="about__conteiners">
-              <div class="about__images"><img src="images/sms.png" alt="#"></div>
-              <div class="about__email">
-                <p class="about__normol">Email</p>
-                <p>${data.email}</p>
-              </div>
-            </div>
-            <div class="about__conteiners">
-              <div class="about__images"><img src="images/call.png" alt="#"></div>
-              <div class="about__email">
-                <p class="about__normol">Phone Number</p>
-                <p>${data.phone}</p>
-              </div>
-            </div>
-            <div>
-              <p class="about__content">Download Resume</p>
-              <p class="about__content2">Message</p>
-            </div>
-          </div>
+        <div class="about__registertext flex flex-col space-y-2">
+          ${tagBadges}
         </div>
       </div>
-    </div>
+
+      <div class="mb-4">
+        <p class="about__text font-semibold">About Me</p>
+        <p class="about__slogan__text text-sm">${data.about}</p>
+      </div>
   `;
 }
 
-function insertCard(containerId, cardKey) {
+function insertCandidateCard(containerId, cardKey) {
   const container = document.getElementById(containerId);
   if (!container) return console.error(`Container "${containerId}" not found`);
 
@@ -87,6 +56,7 @@ function insertCard(containerId, cardKey) {
 
   container.innerHTML = generateCardTemplate(cardData);
 }
+
 
 // ==== 2. Горизонтальные карточки ====
 const featureCards = {
@@ -106,9 +76,9 @@ const featureCards = {
 
 function generateFeatureCardHTML(card) {
   return `
-    <div class="card">
-      <h3 class="text-x">${card.title}</h3>
-      <p class="text-gray">${card.description}</p>
+    <div class="card bg-white p-6 rounded shadow-md hover:shadow-lg transition-shadow duration-300 min-w-[250px]">
+      <h3 class="text-x font-bold mb-2">${card.title}</h3>
+      <p class="text-gray text-sm">${card.description}</p>
     </div>
   `;
 }
@@ -118,26 +88,60 @@ function renderFeatureCards(containerId) {
   if (!container) return console.error(`Container "${containerId}" not found`);
 
   container.innerHTML = "";
-  container.classList.add("flex", "overflow-x-auto", "gap-4", "p-4");
+  container.classList.add("grid", "grid-cols-1", "md:grid-cols-3", "gap-6", "mt-12");
 
   Object.values(featureCards).forEach(card => {
     container.insertAdjacentHTML("beforeend", generateFeatureCardHTML(card));
   });
 }
 
-function enableHorizontalScroll(containerId) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
 
-  container.addEventListener("wheel", (e) => {
-    e.preventDefault();
-    container.scrollLeft += e.deltaY;
-  }, { passive: false });
+// ==== 3. Swiper Slider для портфолио ====
+function initSwiper(portfolioImages) {
+  const swiperWrapper = document.querySelector('.swiper-wrapper');
+  if (!swiperWrapper) return;
+
+  // Очистка старых слайдов
+  swiperWrapper.innerHTML = '';
+
+  // Добавляем изображения как слайды
+  portfolioImages.forEach(imgSrc => {
+    const slide = document.createElement('div');
+    slide.className = 'swiper-slide';
+    slide.innerHTML = `<img src="${imgSrc}" alt="Portfolio Slide" class="w-full h-auto object-cover rounded-lg">`;
+    swiperWrapper.appendChild(slide);
+  });
+
+  // Инициализация Swiper
+  new Swiper('.mySwiper', {
+    loop: true,
+    spaceBetween: 20,
+    slidesPerView: 1.2,
+    centeredSlides: true,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+      640: { slidesPerView: 1.5 },
+      768: { slidesPerView: 2 },
+      1024: { slidesPerView: 2.5 },
+    }
+  });
 }
 
-// ==== 3. Инициализация при загрузке страницы ====
+
+// ==== 4. Запуск при загрузке страницы ====
 document.addEventListener("DOMContentLoaded", () => {
-  insertCard("cards-container", "card_1");
-  renderFeatureCards("card-container");
-  enableHorizontalScroll("card-container");
+  insertCandidateCard("candidate-card-container", "card_1");
+  renderFeatureCards("feature-cards-container");
+
+  const cardData = getCardData("card_1");
+  if (cardData && cardData.portfolioImages.length > 0) {
+    initSwiper(cardData.portfolioImages);
+  }
 });

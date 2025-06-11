@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 
-<body  class="body__container">
+<body class="body__container">
     <div>
         <!-- Header -->
         <header class="header container">
@@ -64,12 +64,25 @@
             </section>
 
             <!-- Dynamic Candidate Cards -->
+            <!-- Section About -->
             <section class="section__about" id="about">
-                <!-- Контейнер для карточки кандидата -->
-                <div id="cards-container"></div>
+                <div>
+                    <div id="candidate-card-container" class="flex justify-center"></div>
 
-                <!-- Контейнер для горизонтального списка карточек -->
-                <div id="card-container" class="flex"></div>
+                    <!-- Swiper Container -->
+                    <div class="swiper mySwiper mt-6 w-full max-w-xl mx-auto">
+                        <div class="swiper-wrapper"></div>
+                        <!-- Pagination -->
+                        <div class="swiper-pagination"></div>
+                        <!-- Navigation buttons -->
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+
+
+                <!-- Feature Cards -->
+                <div id="feature-cards-container" class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12"></div>
             </section>
 
             <!-- Features -->
