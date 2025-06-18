@@ -137,12 +137,70 @@ function renderFeatureCards(containerId) {
 
 
 // ==== 4. Запуск при загрузке страницы ====
-document.addEventListener("DOMContentLoaded", () => {
-  insertCandidateCard("candidate-card-container", "card_1");
+document.addEventListener('DOMContentLoaded', function() {
   renderFeatureCards("feature-cards-container");
+  // Данные для карточек (замени на свои реальные данные)
+  const candidatesData = [
+    {
+      title: "UI/UX Designer",
+      subtitle: "Senior Designer",
+      location: "San Francisco, CA",
+      about: "I design user interfaces and experiences with a focus on accessibility and clean aesthetics.",
+      tags: ["Figma", "Adobe XD", "User Research"]
+    },
+    {
+      title: "Frontend Developer",
+      subtitle: "Mid-level Developer",
+      location: "Remote",
+      about: "Specialized in React and Vue.js with 3+ years of commercial experience.",
+      tags: ["JavaScript", "React", "CSS"]
+    },
+    {
+      title: "Product Manager",
+      subtitle: "Junior PM",
+      location: "New York, NY",
+      about: "Passionate about building products that solve real user problems.",
+      tags: ["Agile", "Scrum", "JIRA"]
+    }
+  ];
 
-  const cardData = getCardData("card_1");
-  if (cardData && cardData.portfolioImages.length > 0) {
-    initSwiper(cardData.portfolioImages);
-  }
+  // Находим контейнер Swiper
+  const swiperWrapper = document.querySelector('.swiper-wrapper');
+  
+  // Очищаем (на случай дублирования)
+  swiperWrapper.innerHTML = '';
+
+  // Создаём слайды с карточками
+  candidatesData.forEach(candidate => {
+    const slide = document.createElement('div');
+    slide.className = 'swiper-slide';
+    
+    // Генерируем карточку через твою функцию
+    slide.innerHTML = `
+      <div class="candidate-card-container">
+        ${generateCardTemplate(candidate)}
+        
+      </div>
+    `;
+    
+    swiperWrapper.appendChild(slide);
+
+  });
+
+  // Инициализируем Swiper ПОСЛЕ генерации слайдов
+  const swiper = new Swiper('.slider-container', {
+    // Настройки
+    loop: true,
+    slidesPerView: 1,
+    spaceBetween: 20,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    // Автопрокрутка (опционально)
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+  });
 });
