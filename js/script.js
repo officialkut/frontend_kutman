@@ -5,7 +5,7 @@ const cards = {
     subtitle: "Senior Product Designer",
     location: "Los Angeles, USA",
     tags: ["Figma", "UI Design", "UX Design"],
-    about: "Hi, I’m a final year student completing a bachelor’s In information Technology in QUT, with experience. We are the company behind the wildly successful DIY channel 5-Minute Crafts, the inspirational and creative channel Bright Side.",
+    about: "Hi, I'm a final year student completing a bachelor's In information Technology in QUT, with experience. We are the company behind the wildly successful DIY channel 5-Minute Crafts, the inspirational and creative channel Bright Side.",
     portfolioImages: [
       "images/Fram.png",
       "images/Fram2.png",
@@ -45,57 +45,37 @@ function generateCardTemplate(data) {
         <p class="about__slogan__text">${data.about}</p>
         <p>Portfolio</p>
         <div class="about__img">
-        <img src="images/Fram.png" alt="">
-        <img src="images/Fram2.png" alt="">
-        <img src="images/Fram3.png" alt="">        
+          ${data.portfolioImages.map(img => `<img src="${img}" alt="">`).join('')}
         </div>
         <p>Work Experience</p>
       </div>
-       <div class="about__list__item">
-                            <div class="about__list2">
-                                <div class="about__conteiners">
-                                    <div class="about__images">
-                                        <img src="images/sms.png" alt="#">
-                                    </div>
-
-                                    <div class="about__email">
-                                        <p class="about__normol">Email</p>
-                                        <p>pristia@gmail.com</p>
-                                    </div>
-
-                                </div>
-
-                                <div class="about__conteiners">
-                                    <div class="about__images"><img src="images/call.png" alt=""></div>
-
-                                    <div class="about__email">
-                                        <p class="about__normol">Phone Number</p>
-                                        <p>0809021920139</p>
-                                    </div>
-
-                                </div>
-                                <div>
-                                    <p class="about__content">Download Resume</p>
-                                    <p class="about__content2">Message</p>
-                                </div>
-                            </div>
-
-
-
-                        </div>
+      <div class="about__list__item">
+        <div class="about__list2">
+          <div class="about__conteiners">
+            <div class="about__images">
+              <img src="images/sms.png" alt="#">
+            </div>
+            <div class="about__email">
+              <p class="about__normol">Email</p>
+              <p>${data.email}</p>
+            </div>
+          </div>
+          <div class="about__conteiners">
+            <div class="about__images"><img src="images/call.png" alt=""></div>
+            <div class="about__email">
+              <p class="about__normol">Phone Number</p>
+              <p>${data.phone}</p>
+            </div>
+          </div>
+          <div>
+            <p class="about__content">Download Resume</p>
+            <p class="about__content2">Message</p>
+          </div>
+        </div>
+      </div>
+    </div>
   `;
 }
-
-function insertCandidateCard(containerId, cardKey) {
-  const container = document.getElementById(containerId);
-  if (!container) return console.error(`Container "${containerId}" not found`);
-
-  const cardData = getCardData(cardKey);
-  if (!cardData) return console.warn(`Card "${cardKey}" not found`);
-
-  container.innerHTML = generateCardTemplate(cardData);
-}
-
 
 // ==== 2. Горизонтальные карточки ====
 const featureCards = {
@@ -134,11 +114,50 @@ function renderFeatureCards(containerId) {
   });
 }
 
+// ==== 3. Модальное окно ====
+function setupModal() {
+  const modalOverlay = document.getElementById('modalOverlay');
+  const cancelButton = document.getElementById('cancelButton');
+  const signupButton = document.getElementById('header__signup');
+  const modalForm = document.getElementById('modalForm');
 
+  if (!modalOverlay || !cancelButton || !signupButton || !modalForm) {
+    console.error("Modal elements not found");
+    return;
+  }
 
-// ==== 4. Запуск при загрузке страницы ====
+  function openModal() {
+    modalOverlay.style.display = 'flex';
+    document.body.classList.add('modal-open');
+  }
+
+  function closeModal() {
+    modalOverlay.style.display = 'none';
+    document.body.classList.remove('modal-open');
+  }
+
+  signupButton.addEventListener('click', function(e) {
+    e.preventDefault();
+    openModal();
+  });
+
+  cancelButton.addEventListener('click', closeModal);
+
+  modalOverlay.addEventListener('click', function(e) {
+    if (e.target === modalOverlay) {
+      closeModal();
+    }
+  });
+
+  modalForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    console.log("Form submitted");
+    closeModal();
+  });
+}
+
+// ==== 4. Swiper инициализация ====
 document.addEventListener('DOMContentLoaded', function() {
-  renderFeatureCards("feature-cards-container");
   // Данные для карточек (замени на свои реальные данные)
   const candidatesData = [
     {
@@ -179,12 +198,10 @@ document.addEventListener('DOMContentLoaded', function() {
     slide.innerHTML = `
       <div class="candidate-card-container">
         ${generateCardTemplate(candidate)}
-        
       </div>
     `;
     
     swiperWrapper.appendChild(slide);
-
   });
 
   // Инициализируем Swiper ПОСЛЕ генерации слайдов
@@ -204,3 +221,59 @@ document.addEventListener('DOMContentLoaded', function() {
     },
   });
 });
+
+// ==== 5. Инициализация всего при загрузке ====
+function initModal() {
+  // Элементы
+  const modalOverlay = document.getElementById('modalOverlay');
+  const modal = document.querySelector('.modal');
+  const signupButton = document.getElementById('header__signup');
+  const cancelButton = document.getElementById('cancelButton');
+  const closeButton = document.getElementById('modalClose');
+  const modalForm = document.getElementById('modalForm');
+
+  // Проверка элементов
+  if (!modalOverlay || !modal || !signupButton || !cancelButton || !closeButton || !modalForm) {
+    console.error('Не найдены элементы модального окна');
+    return;
+  }
+
+  // Открытие модалки
+  function openModal() {
+    document.body.classList.add('modal-open');
+    modalOverlay.classList.add('active');
+  }
+
+  // Закрытие модалки
+  function closeModal() {
+    modalOverlay.classList.remove('active');
+    setTimeout(() => {
+      document.body.classList.remove('modal-open');
+    }, 300); // Ждем завершения анимации
+  }
+
+  // Обработчики событий
+  signupButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal();
+  });
+
+  cancelButton.addEventListener('click', closeModal);
+  closeButton.addEventListener('click', closeModal);
+
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) {
+      closeModal();
+    }
+  });
+
+  modalForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // Здесь можно добавить обработку формы
+    console.log('Форма отправлена');
+    closeModal();
+  });
+}
+
+// Инициализация при загрузке
+document.addEventListener('DOMContentLoaded', initModal);
