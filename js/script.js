@@ -51,6 +51,38 @@ function generateCardTemplate(data) {
         </div>
         <p>Work Experience</p>
       </div>
+       <div class="about__list__item">
+                            <div class="about__list2">
+                                <div class="about__conteiners">
+                                    <div class="about__images">
+                                        <img src="images/sms.png" alt="#">
+                                    </div>
+
+                                    <div class="about__email">
+                                        <p class="about__normol">Email</p>
+                                        <p>pristia@gmail.com</p>
+                                    </div>
+
+                                </div>
+
+                                <div class="about__conteiners">
+                                    <div class="about__images"><img src="images/call.png" alt=""></div>
+
+                                    <div class="about__email">
+                                        <p class="about__normol">Phone Number</p>
+                                        <p>0809021920139</p>
+                                    </div>
+
+                                </div>
+                                <div>
+                                    <p class="about__content">Download Resume</p>
+                                    <p class="about__content2">Message</p>
+                                </div>
+                            </div>
+
+
+
+                        </div>
   `;
 }
 
