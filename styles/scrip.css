@@ -19,7 +19,7 @@
 }
 /* styles.css (или slider.module.css, если используешь модули) */
 .slider-container {
-  max-width: 1440px; /* Подстрой под свою вёрстку */
+  max-width: 1440px;
   margin: 0 auto;
   overflow: hidden;
 }
@@ -44,4 +44,4 @@
 /* Стили для слайдера */
 .swiper-slide {
   height: auto !important; /* Чтобы слайд растягивался под контент */
- 
+}

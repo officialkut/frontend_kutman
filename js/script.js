@@ -1,279 +1,89 @@
-// ==== 1. Карточка кандидата ====
-const cards = {
-  card_1: {
-    title: "Pristia Candra",
-    subtitle: "Senior Product Designer",
-    location: "Los Angeles, USA",
-    tags: ["Figma", "UI Design", "UX Design"],
-    about: "Hi, I'm a final year student completing a bachelor's In information Technology in QUT, with experience. We are the company behind the wildly successful DIY channel 5-Minute Crafts, the inspirational and creative channel Bright Side.",
-    portfolioImages: [
-      "images/Fram.png",
-      "images/Fram2.png",
-      "images/Fram3.png"
-    ],
-    email: "pristia@gmail.com",
-    phone: "0809021920139"
-  }
-};
+document.addEventListener('DOMContentLoaded', function() {
+  // Основные элементы
+  const form = document.getElementById('contactForm');
+  const modal = document.getElementById('formModal');
+  
+  // Элементы могут быть null, поэтому добавляем проверки
+  if (!form || !modal) return;
+  
+  // Кнопки и инпуты
+  const dataInputs = form.querySelectorAll('input, textarea, select');
+  const openModalBtns = document.querySelectorAll('.header__login');
+  const closeModalBtn = modal.querySelector('.exit-button');
+  const cancelBtn = modal.querySelector('.cansel-button');
 
-function getCardData(key) {
-  return cards[key] || null;
-}
-
-function generateCardTemplate(data) {
-  const tagBadges = data.tags.map(tag => `<p class="about__register">${tag}</p>`).join('');
-
-  return `
-    <div class="about__wrapper">
-      <div class="about__inner">
-        <div class="about__inner__war">
-          <img class="about__avatar" src="images/Ellipse.png" alt="Profile Picture">
-          <p class="about__subject">${data.title}</p>
-          <p class="about__caption">${data.subtitle}</p>
-          <div class="about__col">
-            <p>${data.location}</p>
-            <p class="about__slogan">Fulltime Freelancer</p>
-          </div>
-        </div>
-        <div class="about__registertext">
-          ${tagBadges}
-        </div>
-      </div>
-
-      <div class="mb-4">
-        <p class="about__text">About Me</p>
-        <p class="about__slogan__text">${data.about}</p>
-        <p>Portfolio</p>
-        <div class="about__img">
-          ${data.portfolioImages.map(img => `<img src="${img}" alt="">`).join('')}
-        </div>
-        <p>Work Experience</p>
-      </div>
-      <div class="about__list__item">
-        <div class="about__list2">
-          <div class="about__conteiners">
-            <div class="about__images">
-              <img src="images/sms.png" alt="#">
-            </div>
-            <div class="about__email">
-              <p class="about__normol">Email</p>
-              <p>${data.email}</p>
-            </div>
-          </div>
-          <div class="about__conteiners">
-            <div class="about__images"><img src="images/call.png" alt=""></div>
-            <div class="about__email">
-              <p class="about__normol">Phone Number</p>
-              <p>${data.phone}</p>
-            </div>
-          </div>
-          <div>
-            <p class="about__content">Download Resume</p>
-            <p class="about__content2">Message</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-// ==== 2. Горизонтальные карточки ====
-const featureCards = {
-  card_1: {
-    title: "Professional Profile",
-    description: "We know finding the right job is stressful, so we've made it simple. It only takes a few minutes. Create a free portfolio on brefolio to show your best self and get discovered by recruiters."
-  },
-  card_2: {
-    title: "Best Portfolio",
-    description: "We know finding the right job is stressful, so we've made it simple. It only takes a few minutes. Create a free portfolio on brefolio to show your best self and get discovered by recruiters."
-  },
-  card_3: {
-    title: "Powerful Resume",
-    description: "We know finding the right job is stressful, so we've made it simple. It only takes a few minutes. Create a free portfolio on brefolio to show your best self and get discovered by recruiters."
-  }
-};
-
-function generateFeatureCardHTML(card) {
-  return `
-    <div class="card">
-      <h3 class="text-x">${card.title}</h3>
-      <p class="text-gray">${card.description}</p>
-    </div>
-  `;
-}
-
-function renderFeatureCards(containerId) {
-  const container = document.getElementById(containerId);
-  if (!container) return console.error(`Container "${containerId}" not found`);
-
-  container.innerHTML = "";
-  container.classList.add("grid", "grid-cols-1", "md:grid-cols-3", "gap-6", "mt-12");
-
-  Object.values(featureCards).forEach(card => {
-    container.insertAdjacentHTML("beforeend", generateFeatureCardHTML(card));
+  // Обработка перехода между полями формы по Tab
+  dataInputs.forEach((input, index) => {
+    input.addEventListener('keydown', (event) => {
+      if (event.key === 'Tab') {
+        event.preventDefault();
+        const nextIndex = (index + 1) % dataInputs.length;
+        dataInputs[nextIndex].focus();
+      }
+    });
   });
-}
 
-// ==== 3. Модальное окно ====
-function setupModal() {
-  const modalOverlay = document.getElementById('modalOverlay');
-  const cancelButton = document.getElementById('cancelButton');
-  const signupButton = document.getElementById('header__signup');
-  const modalForm = document.getElementById('modalForm');
+  // Обработка отправки формы
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    
+    try {
+      const formData = new FormData(form);
+      const formObject = Object.fromEntries(formData.entries());
+      
+      console.log('Данные формы:', formObject);
+      
+      // Здесь можно добавить отправку данных на сервер
+      // Например: await fetch('/submit-form', { method: 'POST', body: formData });
+      
+      closeModal();
+      form.reset(); // Очищаем форму после отправки
+      
+      // Можно показать сообщение об успешной отправке
+      alert('Форма успешно отправлена!');
+    } catch (error) {
+      console.error('Ошибка при отправке формы:', error);
+      alert('Произошла ошибка при отправке формы');
+    }
+  });
 
-  if (!modalOverlay || !cancelButton || !signupButton || !modalForm) {
-    console.error("Modal elements not found");
-    return;
-  }
-
+  // Функция открытия модального окна
   function openModal() {
-    modalOverlay.style.display = 'flex';
+    modal.style.display = 'flex';
     document.body.classList.add('modal-open');
+    document.body.style.overflow = 'hidden';
+    // Фокусируем первый инпут при открытии
+    const firstInput = form.querySelector('input, textarea, select');
+    if (firstInput) firstInput.focus();
   }
 
+  // Функция закрытия модального окна
   function closeModal() {
-    modalOverlay.style.display = 'none';
+    modal.style.display = 'none';
     document.body.classList.remove('modal-open');
+    document.body.style.overflow = '';
   }
 
-  signupButton.addEventListener('click', function(e) {
-    e.preventDefault();
-    openModal();
+  // Обработчики открытия модального окна
+  openModalBtns.forEach(btn => {
+    btn.addEventListener('click', openModal);
   });
 
-  cancelButton.addEventListener('click', closeModal);
+  // Обработчики закрытия модального окна
+  if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+  if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
 
-  modalOverlay.addEventListener('click', function(e) {
-    if (e.target === modalOverlay) {
+  // Закрытие по клику вне модального окна
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
       closeModal();
     }
   });
 
-  modalForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    console.log("Form submitted");
-    closeModal();
-  });
-}
-
-// ==== 4. Swiper инициализация ====
-document.addEventListener('DOMContentLoaded', function() {
-  // Данные для карточек (замени на свои реальные данные)
-  const candidatesData = [
-    {
-      title: "UI/UX Designer",
-      subtitle: "Senior Designer",
-      location: "San Francisco, CA",
-      about: "I design user interfaces and experiences with a focus on accessibility and clean aesthetics.",
-      tags: ["Figma", "Adobe XD", "User Research"]
-    },
-    {
-      title: "Frontend Developer",
-      subtitle: "Mid-level Developer",
-      location: "Remote",
-      about: "Specialized in React and Vue.js with 3+ years of commercial experience.",
-      tags: ["JavaScript", "React", "CSS"]
-    },
-    {
-      title: "Product Manager",
-      subtitle: "Junior PM",
-      location: "New York, NY",
-      about: "Passionate about building products that solve real user problems.",
-      tags: ["Agile", "Scrum", "JIRA"]
+  // Закрытие по ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.style.display === 'flex') {
+      closeModal();
     }
-  ];
-
-  // Находим контейнер Swiper
-  const swiperWrapper = document.querySelector('.swiper-wrapper');
-  
-  // Очищаем (на случай дублирования)
-  swiperWrapper.innerHTML = '';
-
-  // Создаём слайды с карточками
-  candidatesData.forEach(candidate => {
-    const slide = document.createElement('div');
-    slide.className = 'swiper-slide';
-    
-    // Генерируем карточку через твою функцию
-    slide.innerHTML = `
-      <div class="candidate-card-container">
-        ${generateCardTemplate(candidate)}
-      </div>
-    `;
-    
-    swiperWrapper.appendChild(slide);
-  });
-
-  // Инициализируем Swiper ПОСЛЕ генерации слайдов
-  const swiper = new Swiper('.slider-container', {
-    // Настройки
-    loop: true,
-    slidesPerView: 1,
-    spaceBetween: 20,
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    // Автопрокрутка (опционально)
-    autoplay: {
-      delay: 5000,
-      disableOnInteraction: false,
-    },
   });
 });
-
-// ==== 5. Инициализация всего при загрузке ====
-function initModal() {
-  // Элементы
-  const modalOverlay = document.getElementById('modalOverlay');
-  const modal = document.querySelector('.modal');
-  const signupButton = document.getElementById('header__signup');
-  const cancelButton = document.getElementById('cancelButton');
-  const closeButton = document.getElementById('modalClose');
-  const modalForm = document.getElementById('modalForm');
-
-  // Проверка элементов
-  if (!modalOverlay || !modal || !signupButton || !cancelButton || !closeButton || !modalForm) {
-    console.error('Не найдены элементы модального окна');
-    return;
-  }
-
-  // Открытие модалки
-  function openModal() {
-    document.body.classList.add('modal-open');
-    modalOverlay.classList.add('active');
-  }
-
-  // Закрытие модалки
-  function closeModal() {
-    modalOverlay.classList.remove('active');
-    setTimeout(() => {
-      document.body.classList.remove('modal-open');
-    }, 300); // Ждем завершения анимации
-  }
-
-  // Обработчики событий
-  signupButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    openModal();
-  });
-
-  cancelButton.addEventListener('click', closeModal);
-  closeButton.addEventListener('click', closeModal);
-
-  modalOverlay.addEventListener('click', (e) => {
-    if (e.target === modalOverlay) {
-      closeModal();
-    }
-  });
-
-  modalForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    // Здесь можно добавить обработку формы
-    console.log('Форма отправлена');
-    closeModal();
-  });
-}
-
-// Инициализация при загрузке
-document.addEventListener('DOMContentLoaded', initModal);
