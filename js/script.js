@@ -5,7 +5,7 @@ const cards = {
     subtitle: "Senior Product Designer",
     location: "Los Angeles, USA",
     tags: ["Figma", "UI Design", "UX Design"],
-    about: "Hi, I’m a final year student completing a bachelor’s in Information Technology in QUT, with experience.",
+    about: "Hi, I’m a final year student completing a bachelor’s In information Technology in QUT, with experience. We are the company behind the wildly successful DIY channel 5-Minute Crafts, the inspirational and creative channel Bright Side.",
     portfolioImages: [
       "images/Fram.png",
       "images/Fram2.png",
@@ -24,25 +24,32 @@ function generateCardTemplate(data) {
   const tagBadges = data.tags.map(tag => `<p class="about__register">${tag}</p>`).join('');
 
   return `
-    <div class="about__wrapper bg-white p-6 rounded shadow-md">
-      <div class="about__inner flex justify-between items-start mb-4">
+    <div class="about__wrapper">
+      <div class="about__inner">
         <div class="about__inner__war">
           <img class="about__avatar" src="images/Ellipse.png" alt="Profile Picture">
-          <p class="about__subject font-bold">${data.title}</p>
-          <p class="about__caption text-gray-600">${data.subtitle}</p>
+          <p class="about__subject">${data.title}</p>
+          <p class="about__caption">${data.subtitle}</p>
           <div class="about__col">
             <p>${data.location}</p>
             <p class="about__slogan">Fulltime Freelancer</p>
           </div>
         </div>
-        <div class="about__registertext flex flex-col space-y-2">
+        <div class="about__registertext">
           ${tagBadges}
         </div>
       </div>
 
       <div class="mb-4">
-        <p class="about__text font-semibold">About Me</p>
-        <p class="about__slogan__text text-sm">${data.about}</p>
+        <p class="about__text">About Me</p>
+        <p class="about__slogan__text">${data.about}</p>
+        <p>Portfolio</p>
+        <div class="about__img">
+        <img src="images/Fram.png" alt="">
+        <img src="images/Fram2.png" alt="">
+        <img src="images/Fram3.png" alt="">        
+        </div>
+        <p>Work Experience</p>
       </div>
   `;
 }
@@ -76,9 +83,9 @@ const featureCards = {
 
 function generateFeatureCardHTML(card) {
   return `
-    <div class="card bg-white p-6 rounded shadow-md hover:shadow-lg transition-shadow duration-300 min-w-[250px]">
-      <h3 class="text-x font-bold mb-2">${card.title}</h3>
-      <p class="text-gray text-sm">${card.description}</p>
+    <div class="card">
+      <h3 class="text-x">${card.title}</h3>
+      <p class="text-gray">${card.description}</p>
     </div>
   `;
 }
@@ -95,44 +102,6 @@ function renderFeatureCards(containerId) {
   });
 }
 
-
-// ==== 3. Swiper Slider для портфолио ====
-function initSwiper(portfolioImages) {
-  const swiperWrapper = document.querySelector('.swiper-wrapper');
-  if (!swiperWrapper) return;
-
-  // Очистка старых слайдов
-  swiperWrapper.innerHTML = '';
-
-  // Добавляем изображения как слайды
-  portfolioImages.forEach(imgSrc => {
-    const slide = document.createElement('div');
-    slide.className = 'swiper-slide';
-    slide.innerHTML = `<img src="${imgSrc}" alt="Portfolio Slide" class="w-full h-auto object-cover rounded-lg">`;
-    swiperWrapper.appendChild(slide);
-  });
-
-  // Инициализация Swiper
-  new Swiper('.mySwiper', {
-    loop: true,
-    spaceBetween: 20,
-    slidesPerView: 1.2,
-    centeredSlides: true,
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    breakpoints: {
-      640: { slidesPerView: 1.5 },
-      768: { slidesPerView: 2 },
-      1024: { slidesPerView: 2.5 },
-    }
-  });
-}
 
 
 // ==== 4. Запуск при загрузке страницы ====

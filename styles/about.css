@@ -147,6 +147,7 @@
 
 .flex{
     display: flex;
+    justify-content: space-around;
 }
 /* styles/style.css */
 
@@ -160,8 +161,12 @@
     font-family: 'inter';
     font-weight: 400;
 }
-
-
+.feature-cards-container {
+    display: flex;
+}
+.grid {
+    display: flex;
+}
 
 /* Стиль для горизонтальных карточек */
 .card {
