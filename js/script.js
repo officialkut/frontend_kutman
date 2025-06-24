@@ -395,3 +395,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 });
+document.addEventListener('DOMContentLoaded', () => {
+  const preloader = document.querySelector('.preloader');
+  
+  // Минимальное время показа прелоадера (в миллисекундах)
+  const minLoaderTime = 1000;
+  
+  // Время начала загрузки
+  const loadStartTime = Date.now();
+  
+  // Функция скрытия прелоадера
+  function hidePreloader() {
+    // Вычисляем оставшееся время для минимальной задержки
+    const loadTime = Date.now() - loadStartTime;
+    const remainingTime = Math.max(0, minLoaderTime - loadTime);
+    
+    setTimeout(() => {
+      preloader.style.opacity = '0';
+      setTimeout(() => {
+        preloader.style.display = 'none';
+      }, 500); // Совпадает с временем transition в CSS
+    }, remainingTime);
+  }
+  
+  // Проверяем, полностью ли загружена страница
+  if (document.readyState === 'complete') {
+    hidePreloader();
+  } else {
+    window.addEventListener('load', hidePreloader);
+    
+    // На всякий случай скрываем прелоадер через 5 секунд
+    setTimeout(hidePreloader, 5000);
+  }
+});
