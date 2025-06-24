@@ -1,0 +1,55 @@
+{
+  "candidateCards": {
+    "card_1": {
+      "title": "Pristia Candra",
+      "subtitle": "Senior Product Designer",
+      "location": "Los Angeles, USA",
+      "tags": ["Figma", "UI Design", "UX Design"],
+      "about": "Hi, I'm a final year student completing a bachelor's In information Technology in QUT, with experience. We are the company behind the wildly successful DIY channel 5-Minute Crafts, the inspirational and creative channel Bright Side.",
+      "portfolioImages": [
+        "images/Fram.png",
+        "images/Fram2.png",
+        "images/Fram3.png"
+      ],
+      "email": "pristia@gmail.com",
+      "phone": "0809021920139"
+    }
+  },
+  "featureCards": {
+    "card_1": {
+      "title": "Professional Profile",
+      "description": "We know finding the right job is stressful, so we've made it simple. It only takes a few minutes. Create a free portfolio on brefolio to show your best self and get discovered by recruiters."
+    },
+    "card_2": {
+      "title": "Best Portfolio",
+      "description": "We know finding the right job is stressful, so we've made it simple. It only takes a few minutes. Create a free portfolio on brefolio to show your best self and get discovered by recruiters."
+    },
+    "card_3": {
+      "title": "Powerful Resume",
+      "description": "We know finding the right job is stressful, so we've made it simple. It only takes a few minutes. Create a free portfolio on brefolio to show your best self and get discovered by recruiters."
+    }
+  },
+  "swiperCandidates": [
+    {
+      "title": "UI/UX Designer",
+      "subtitle": "Senior Designer",
+      "location": "San Francisco, CA",
+      "about": "I design user interfaces and experiences with a focus on accessibility and clean aesthetics.",
+      "tags": ["Figma", "Adobe XD", "User Research"]
+    },
+    {
+      "title": "Frontend Developer",
+      "subtitle": "Mid-level Developer",
+      "location": "Remote",
+      "about": "Specialized in React and Vue.js with 3+ years of commercial experience.",
+      "tags": ["JavaScript", "React", "CSS"]
+    },
+    {
+      "title": "Product Manager",
+      "subtitle": "Junior PM",
+      "location": "New York, NY",
+      "about": "Passionate about building products that solve real user problems.",
+      "tags": ["Agile", "Scrum", "JIRA"]
+    }
+  ]
+}
