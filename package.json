@@ -1,0 +1,15 @@
+{
+  "name": "frontend_kutman",
+  "version": "1.0.0",
+  "description": "- Группа: ОС-27 - Специализация: 02.03.03 Математическое обеспечение и администрирование информационных систем - Факультет: Физико-математический факультет #Проект по курсу frontend Макет:https://www.figma.com/design/u1fHPkVcFOPQjcQq3ZSnmr/Web.Jobly?node-id=0-1&node-type=canvas&t=51zzRpwNF1biqww6-0",
+  "main": "index.js",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
