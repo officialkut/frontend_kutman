@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 
-<body >
+<body>
     <div class="body__container">
         <!-- Header -->
         <header class="header container">
@@ -20,7 +20,7 @@
                 <ul class="header__list">
                     <button class="header__recruiters" type="button">For Recruiters</button>
                     <button id="header__signup" class="header__signup">Sign Up</button>
-                    <button  class="header__login" type="button" id="header__login">Log in</button>
+                    <button class="header__login" type="button" id="header__login">Log in</button>
                 </ul>
             </nav>
         </header>
@@ -72,21 +72,21 @@
                         <!-- Слайды -->
                         <div class="swiper-slide">
                             <div class="candidate-card-container"></div>
-                           
+
                         </div>
                         <div class="swiper-slide">
                             <div class="candidate-card-container"></div>
-                            
+
                         </div>
                         <div class="swiper-slide">
                             <div class="candidate-card-container"></div>
-                            
+
                         </div>
                     </div>
 
 
 
-                    
+
                 </div>
 
                 <!-- Контейнер для feature cards -->
@@ -129,7 +129,7 @@
             </div>
         </footer>
     </div>
-        <div class="form" id="formModal">
+    <div class="form" id="formModal">
         <div class="contact-form-container">
             <div class="form-menu">
                 <h2 class="form__name">Register</h2>
@@ -154,11 +154,30 @@
                 </div>
 
                 <div class="form-buttons">
-                    <button type="submit" class="submit-button">Submit</button>
+                    <button type="submit" class="submit-button">Register</button>
                     <button type="button" class="cansel-button">Cansel</button>
                 </div>
 
             </form>
+        </div>
+    </div>
+    <div id="signUpModal" class="form">
+        <div class="contact-form-container">
+            <button class="exit-button">X</button>
+            <form id="signUpForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" autocomplete="on" required>
+                </div>
+
+
+            </form>
+            <button type="submit" class="submit-button">login</button>
+            <button class="cansel-button">Cancel</button>
         </div>
     </div>
 
